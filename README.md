@@ -1,6 +1,6 @@
 # Make 10 Of:
 
-### Satinxs: Lempel Ziv (LZ77)
+### Satinxs: Lempel–Ziv–Storer–Szymanski (LZSS)
 
 > Iterations:
 >
