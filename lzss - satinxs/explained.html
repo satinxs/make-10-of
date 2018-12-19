@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Make 10 Of - LZSS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Lato", sans-serif
+    }
+
+    .w3-bar,
+    h1,
+    button {
+        font-family: "Montserrat", sans-serif
+    }
+
+    .fa-anchor,
+    .fa-coffee {
+        font-size: 200px
+    }
+
+    .inlinetable div {
+        display: inline-block;
+        text-align: center;
+        border: 1px solid black;
+        min-width: 1em;
+        padding: 1px;
+        margin: 0;
+        background-color: rgb(250, 250, 250);
+    }
+
+    .inlinetable div span {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<body style="height:100vh">
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+            <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+        </div>
+    </div>
+
+    <div id="content" style="padding:64px;padding-right:4em;padding-left:4em;">
+        <h1 id="lzss-explained">LZSS Explained</h1>
+        <p><strong>LZSS</strong> (Lempel–Ziv–Storer–Szymanski) is an algorithm of the family of <strong>LZ77</strong>
+            (Lempel-Ziv-1977), also known as <em>&quot;sliding window&quot;</em> algorithms.</p>
+        <p>Using the <strong>LZSS</strong> algorithm, you transform a stream of bytes into a stream of <em>symbols</em>,
+            which can be either a <code class="w3-codespan">{ offset, length }</code> pair or a <code class="w3-codespan">literal</code>
+            value.</p>
+        <p>To differentiate between these two encoding schemes, <strong>LZSS</strong> uses a very simple, but effective
+            method: <em>bit flagging</em> (explained ↓)</p>
+        <hr>
+        <p>Suppose we have a <em>window length</em> of <code class="w3-codespan">4</code> bytes and a minimum <em>match
+                length</em>
+            of
+            <code class="w3-codespan">2</code>:</p>
+        <p>For the input:
+            <div class="inlinetable">A|B| |A|B|C| |A|B|C|D</div>
+        </p>
+
+        <br />
+        <table class="w3-table w3-striped w3-bordered w3-centered">
+            <thead>
+                <tr class="header">
+                    <th>Offset</th>
+                    <th>Input</th>
+                    <th>Window</th>
+                    <th>Output</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <div class="inlinetable">#add8e6:A|#add8e6:B|yellow: |A|B</span>|C| |A|B|C|D</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B|Ø|Ø</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>
+                        <div class="inlinetable">#add8e6:A|#add8e6:B|#add8e6: |yellow:A|B|C| |A|B|C|D</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| |Ø</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| |{0,2}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>
+                        <div class="inlinetable">#add8e6:A|#add8e6:B|#add8e6: |#90ee90:A|#90ee90:B|yellow:C| |A|B|C|D</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">B| |A|B</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| |{0,2}|C</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>
+                        <div class="inlinetable">#add8e6:A|#add8e6:B|#add8e6:&nbsp;|#90ee90:A|#90ee90:B|#add8e6:C|yellow:&nbsp;|A|B|C|D</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable"> |A|B|C</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| |{0,2}|C|{0,4}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>
+                        <div class="inlinetable">#add8e6:A|#add8e6:B|#add8e6:&nbsp;|#90ee90:A|#90ee90:B|#add8e6:C|#90ee90:&nbsp;|#90ee90:A|#90ee90:B|#90ee90:C|yellow:D</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable"> |A|B|C</div>
+                    </td>
+                    <td>
+                        <div class="inlinetable">A|B| |{0,2}|C|{0,4}|D</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <h5 id="notes:">Notes:</h5>
+        <ul>
+            <li> We start the offset in 2, the <em>minimum match</em> length </li>
+            <li>
+                ∅ means null
+            </li>
+            <li>
+                <span style="background-color:#add8e6;padding:2px">Blue is exported as Literal</span>
+            </li>
+            <li>
+                <span style="background-color:#90ee90;padding:2px">Green is exported as Matched</span>
+            </li>
+            <li>
+                <span style="background-color:yellow;padding:2px">Yellow is current in Offset</span>
+            </li>
+            <li> In this simple case, the offset of the pairs is always the same</li>
+        </ul>
+
+        <hr />
+
+        <p>
+            <h5>Encoding:</h5>
+            If we use <code class="w3-codespan">bit flagging</code> for encoding, we can mark with <b>0</b> Literals
+            and <b>1</b> for
+            Symbols<br />
+            The maximum offset <i>(window length)</i> is <b>4</b>, and the maximum length <i>(again, window
+                length)</i>
+            is <b>4</b><br />
+            This results in 9 bits per literal and 5 bits per Symbol (1 bit flag, 2 bits offset, 2 bits length)
+        </p>
+        <p>
+            For our result:
+            <div class="inlinetable">A|B| |{0,2}|C|{0,4}|D</div>
+            <div class="inlinetable">9|9|9|&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;|9|&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;|9</div>
+            <br />
+            Total: 55 bits (rounded to 56 bits = 7 bytes) against 80 bits (8 bytes)
+        </p>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var inlineTables = document.querySelectorAll('.inlinetable');
+            inlineTables.forEach(function (el) {
+                el.innerHTML = el.innerHTML.split('|').map(cell => {
+                    let color;
+                    if (cell.includes(':')) {
+                        color = cell.split(':')[0];
+                        cell = cell.split(':')[1];
+                    }
+
+                    cell = cell.replace(' ', '&nbsp;');
+
+                    if (color)
+                        return `<div style="background-color:${color};">${cell}</div>`;
+
+                    return `<div>${cell}</div>`;
+                }).join('');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
