@@ -1,2 +1,9 @@
 .vscode
 debug
+bin
+obj
+packages
+**/*.suo
+.nuget
+.vs
+Release
