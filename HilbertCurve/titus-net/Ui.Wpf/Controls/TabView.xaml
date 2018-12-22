@@ -1,0 +1,72 @@
+﻿<UserControl 
+        x:Class="Ui.Wpf.Controls.TabView"             
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Ui.Wpf.Controls"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*" />
+            <ColumnDefinition Width="30*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Content="Results: "
+                />
+        <Canvas
+                Grid.Row="1"
+                Grid.Column="0"
+            
+                Width="Auto"
+                Height="Auto"
+                >
+            <Polyline
+                Points="{Binding Points, Mode=OneWay}"
+                Stroke="Black"
+                StrokeThickness="2"
+                />
+        </Canvas>
+        <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="10"
+                IsReadOnly="True"
+                TextWrapping="Wrap"
+            
+                Text="{Binding Path=CoordinatesLog, Mode=OneWay}"
+                />
+        <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                FlowDirection="RightToLeft"
+                Orientation="Horizontal"
+                >
+            <TextBox
+                    Padding="15 2 15 2"
+                    Margin="0 5 5 5"
+                    PreviewTextInput="PreviewTextInput" 
+                    Width="60"
+                    Text="{Binding Path=Miliseconds, Mode=TwoWay}"/> 
+            <Button 
+                    Padding="15 2 15 2"
+                    Margin="5 5 5 5"
+                    Content="Draw"
+                
+                    Command="{Binding DrawCommand}"
+                    />
+            <Button 
+                    Padding="15 2 15 2"
+                    Margin="5 5 5 5"
+                    Content="Clear"
+                
+                    Command="{Binding ClearCommand}"
+                    />
+        </StackPanel>
+    </Grid>
+</UserControl>
