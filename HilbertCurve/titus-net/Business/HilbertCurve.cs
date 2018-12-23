@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Business
 {
     public abstract class HilbertCurve
     {
-        public abstract IEnumerable<Coordinates> DoSomething();
+        public abstract IEnumerable<Coordinates> GetCoordenades();
     }
 }

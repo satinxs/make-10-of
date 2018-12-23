@@ -1,7 +1,6 @@
 ﻿using Business;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +22,7 @@ namespace Ui.Wpf.Controls
 
         #region Properties
 
-        private IList<Coordinates> CoordintesList { get; set; }
+        private List<Coordinates> CoordintesList { get; set; }
 
         #endregion
 
@@ -102,6 +101,14 @@ namespace Ui.Wpf.Controls
             this.RaisePropertyChanged("CoordinatesLog");
         }
 
+        public void AddPoints(IEnumerable<Coordinates> coordinatesList)
+        {
+            this.CoordintesList.AddRange(this.iteration.GetCoordenades());
+
+            this.RaisePropertyChanged("Points");
+            this.RaisePropertyChanged("CoordinatesLog");
+        }
+
         public void DeleteAllPoints()
         {
             this.CoordintesList.Clear();
@@ -130,9 +137,16 @@ namespace Ui.Wpf.Controls
 
         private void Draw(IProgress<Coordinates> progress)
         {
-            foreach (var coordinates in this.iteration.DoSomething())
+            if (this.Miliseconds <= 0)
             {
-                if (this.Miliseconds > 0) Thread.Sleep(this.Miliseconds);
+                this.AddPoints(this.iteration.GetCoordenades());
+
+                return;
+            }
+
+            foreach (var coordinates in this.iteration.GetCoordenades())
+            {
+                Thread.Sleep(this.Miliseconds);
 
                 this.AddPoint(coordinates);
             }

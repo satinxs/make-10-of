@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Iteration1
 {
     public class HilbertCurve : Business.HilbertCurve
     {
-        public override IEnumerable<Coordinates> DoSomething()
+        public override IEnumerable<Coordinates> GetCoordenades()
         {
             return new List<Coordinates>()
             {

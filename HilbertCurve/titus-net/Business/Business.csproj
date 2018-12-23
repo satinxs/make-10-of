@@ -44,6 +44,9 @@
     <Compile Include="HilbertCurve.cs" />
     <Compile Include="Coordenates.cs" />
     <Compile Include="Iteration1\HilbertCurve.cs" />
+    <Compile Include="Iteration2\Element.cs" />
+    <Compile Include="Orientation.cs" />
+    <Compile Include="Iteration2\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

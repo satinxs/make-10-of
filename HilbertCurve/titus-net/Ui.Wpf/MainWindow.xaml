@@ -8,5 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
         <TabItem Header="Iteration 1" x:Name="iteration1"/>
+        <TabItem Header="Iteration 2" x:Name="iteration2"/>
     </TabControl>
 </Window>

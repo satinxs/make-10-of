@@ -6,8 +6,8 @@
         >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*" />
-            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="90*" />
+            <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -38,6 +38,8 @@
                 Padding="10"
                 IsReadOnly="True"
                 TextWrapping="Wrap"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto" 
             
                 Text="{Binding Path=CoordinatesLog, Mode=OneWay}"
                 />
