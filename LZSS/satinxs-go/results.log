@@ -6,32 +6,13 @@ GZIP Level 9:  153182  =>  22816  | Compression ratio:  6.713797335203366  | Ela
 ------------------------ 
 . 
 Iteration 2 
-Compressed:  153182  =>  44011  | Compression ratio:  3.4805389561700486  | Elapsed:  61.8594ms
+Compressed:  153182  =>  44011  | Compression ratio:  3.4805389561700486  | Elapsed:  60.8373ms
 Decompressed:  44011  =>  153182
 ------------------------ 
 . 
 Iteration 3 
-Trying configurations:
-	--->( 8 5 4 ) | Length:  138408  | Compression ratio:  1.1067423848332467  | Elapsed:  18.9522ms
-	--->( 8 6 4 ) | Length:  101591  | Compression ratio:  1.5078304180488429  | Elapsed:  20.9431ms
-	--->( 10 6 4 ) | Length:  94388  | Compression ratio:  1.6228969784294613  | Elapsed:  23.9385ms
-	--->( 10 7 4 ) | Length:  76779  | Compression ratio:  1.9951028275960874  | Elapsed:  28.9217ms
-	--->( 10 8 4 ) | Length:  70337  | Compression ratio:  2.1778295918222272  | Elapsed:  57.8434ms
-	--->( 12 8 4 ) | Length:  60106  | Compression ratio:  2.548530928692643  | Elapsed:  35.8803ms
-	--->( 12 9 4 ) | Length:  55947  | Compression ratio:  2.7379841635833913  | Elapsed:  48.8693ms
-	--->( 14 9 4 ) | Length:  50215  | Compression ratio:  3.0505227521656875  | Elapsed:  48.8688ms
-	--->( 14 10 4 ) | Length:  44678  | Compression ratio:  3.4285778235373114  | Elapsed:  84.7733ms
-	--->( 16 10 4 ) | Length:  43984  | Compression ratio:  3.4826755183703164  | Elapsed:  58.8742ms
-	--->( 16 11 4 ) | Length:  37818  | Compression ratio:  4.05050505050505  | Elapsed:  93.7192ms
-	--->( 16 12 4 ) | Length:  36246  | Compression ratio:  4.226176681564862  | Elapsed:  164.5896ms
-	--->( 18 12 4 ) | Length:  33213  | Compression ratio:  4.612109716075031  | Elapsed:  160.6017ms
-	--->( 18 13 4 ) | Length:  31661  | Compression ratio:  4.838192097533243  | Elapsed:  241.3629ms
-	--->( 20 14 4 ) | Length:  29898  | Compression ratio:  5.123486520837514  | Elapsed:  382.9774ms
-	--->( 20 15 4 ) | Length:  29297  | Compression ratio:  5.228589958016179  | Elapsed:  652.2536ms
-	--->( 22 15 4 ) | Length:  29279  | Compression ratio:  5.231804364903173  | Elapsed:  591.4531ms
-	--->( 22 16 4 ) | Length:  28331  | Compression ratio:  5.406868800960079  | Elapsed:  946.4683ms
-Best configuration:  22 16 4
-Compressed:  153182  =>  28331  | Compression ratio:  5.406868800960079  | Elapsed:  935.5331ms
+Best configuration turned to be 22 16 4. To run configuration tester, run without arguments. 
+Compressed:  153182  =>  28331  | Compression ratio:  5.406868800960079  | Elapsed:  1.008337s
 Decompressed:  28331  =>  153182
 . 
 . 

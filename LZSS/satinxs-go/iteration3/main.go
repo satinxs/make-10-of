@@ -3,14 +3,60 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"strconv"
 	"time"
 )
 
 func main() {
-	input, _ := ioutil.ReadFile("../bootstrap.min.css")
 
 	var conf config
+	input, _ := ioutil.ReadFile("../bootstrap.min.css")
+
+	if len(os.Args) == 4 {
+		var err error
+
+		bitPair, err := strconv.Atoi(os.Args[1])
+		if err != nil {
+			panic(err)
+		}
+
+		windowBit, err := strconv.Atoi(os.Args[2])
+		if err != nil {
+			panic(err)
+		}
+		minWord, err := strconv.Atoi(os.Args[3])
+		if err != nil {
+			panic(err)
+		}
+
+		conf = initialize(bitPair, windowBit, minWord)
+	} else {
+		conf = determineBestConfiguration(input)
+	}
+
+	start := time.Now()
+
+	compressed := encode(conf, input)
+
+	elapsed := time.Since(start)
+
+	fmt.Println("Compressed: ", len(input), " => ", len(compressed), " | Compression ratio: ", float64(len(input))/float64(len(compressed)), " | Elapsed: ", elapsed)
+
+	decompressed, err := decode(conf, compressed)
+
+	if err != nil {
+		ioutil.WriteFile("dump.txt", decompressed, 0600)
+
+		fmt.Println("There was an error :(")
+	}
+
+	fmt.Println("Decompressed: ", len(compressed), " => ", len(decompressed))
+}
+
+func determineBestConfiguration(input []byte) config {
 	var compressed []byte
+	var conf config
 
 	pairBitLength := 8
 	windowBitLength := pairBitLength / 2
@@ -49,23 +95,7 @@ func main() {
 	fmt.Println("Best configuration: ", bestPairBitLength, bestWindowBitLength, 4)
 	conf = initialize(bestPairBitLength, bestWindowBitLength, 4)
 
-	start := time.Now()
-
-	compressed = encode(conf, input)
-
-	elapsed := time.Since(start)
-
-	fmt.Println("Compressed: ", len(input), " => ", len(compressed), " | Compression ratio: ", float64(len(input))/float64(len(compressed)), " | Elapsed: ", elapsed)
-
-	decompressed, err := decode(conf, compressed)
-
-	if err != nil {
-		ioutil.WriteFile("dump.txt", decompressed, 0600)
-
-		fmt.Println("There was an error :(")
-	}
-
-	fmt.Println("Decompressed: ", len(compressed), " => ", len(decompressed))
+	return conf
 }
 
 type config struct {
