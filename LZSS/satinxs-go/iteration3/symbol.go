@@ -23,7 +23,7 @@ func (w *Writer) encodeSymbol(c config, s symbol) {
 	} else { //Else, it's a pair
 		w.WriteBit(true) //"Is a pair"
 		w.WriteInt(uint32(s.offset), c.windowBitLength)
-		w.WriteInt(uint32(s.length), c.wordBitLength)
+		w.WriteInt(uint32(s.length-c.wordMinLength), c.wordBitLength)
 	}
 }
 
@@ -31,7 +31,7 @@ func (r *Reader) decodeSymbol(c config) symbol {
 	if r.ReadBit() { //Is pair
 		offset := r.ReadInt(c.windowBitLength)
 		matchLength := r.ReadInt(c.wordBitLength)
-		return symbol{offset: int(offset), length: int(matchLength)}
+		return symbol{offset: int(offset), length: int(matchLength) + c.wordMinLength}
 	}
 
 	//Is literal

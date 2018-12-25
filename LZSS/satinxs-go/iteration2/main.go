@@ -7,6 +7,7 @@ import (
 	"hash/adler32"
 	"io/ioutil"
 	"math"
+	"time"
 )
 
 func main() {
@@ -14,9 +15,13 @@ func main() {
 
 	config := initialize(16, 10, 4)
 
+	start := time.Now()
+
 	compressed := encode(config, input)
 
-	fmt.Println("Compressed: ", len(input), " => ", len(compressed), " | Compression ratio: ", float64(len(input))/float64(len(compressed)))
+	elapsed := time.Since(start)
+
+	fmt.Println("Compressed: ", len(input), " => ", len(compressed), " | Compression ratio: ", float64(len(input))/float64(len(compressed)), " | Elapsed: ", elapsed)
 
 	decompressed, err := decode(config, compressed)
 
